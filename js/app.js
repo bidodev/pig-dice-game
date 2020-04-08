@@ -13,19 +13,24 @@ const scores = [0, 0];
 let roundScore = 0;
 let activePlayer = 0;
 
-const nextPlayer = () => {
-  activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
-  roundScore = 0;
+//function newGame
 
-  const arrCurrent = document.querySelectorAll(".player-current-score");
+/** Steps
+ * reset the current scores to 0
+ * remove dice image
+ * set player 1 as active.
+ */
+const arrCurrent = document.querySelectorAll(".clear-score");
+
+const resetGame = () => {
+  console.log(arrCurrent);
   arrCurrent.forEach((element) => {
     element.textContent = 0;
   });
 
-  document.querySelector(".player-0-panel").classList.toggle("active");
-  document.querySelector(".player-1-panel").classList.toggle("active");
-
-  document.querySelector(".dice").style.display = "none";
+  //hide the dice
+  const diceImg = document.querySelector(`.dice`);
+  diceImg.classList.toggle("hide");
 };
 
 //button roll dice
@@ -68,14 +73,28 @@ const btnHold = document.querySelector(`.btn-hold`);
 
 btnHold.addEventListener("click", () => {
   const scoreHolder = document.querySelector(`#score-${activePlayer}`);
+  const winnerPlayer = document.querySelector(`#name-${activePlayer}`);
 
   //adding the current score the global score.
   scores[activePlayer] += roundScore;
-  console.log(activePlayer);
+  //console.log(activePlayer);
 
   //updating the user interface;
   scoreHolder.textContent = scores[activePlayer];
 
-  //next player
-  nextPlayer();
+  //check if the player won the game..
+  if (scores[activePlayer] >= 10) {
+    winnerPlayer.textContent = "Winner";
+    resetGame();
+  } else {
+    nextPlayer();
+  }
 });
+
+//button new game
+/**
+ * call function newGame()
+ * reset all the variables to default
+ */
+const btnNew = document.querySelector(`.btn-new`);
+btnNew.addEventListener("click", resetGame);
