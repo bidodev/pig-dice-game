@@ -20,17 +20,19 @@ let activePlayer = 0;
  * remove dice image
  * set player 1 as active.
  */
-const arrCurrent = document.querySelectorAll(".clear-score");
+
+const elements = {
+  diceImg: document.querySelector(`.dice`),
+  clearScores: document.querySelectorAll(".clear-score"),
+};
 
 const resetGame = () => {
-  console.log(arrCurrent);
-  arrCurrent.forEach((element) => {
+  clearScores.forEach((element) => {
     element.textContent = 0;
   });
 
   //hide the dice
-  const diceImg = document.querySelector(`.dice`);
-  diceImg.classList.toggle("hide");
+  elements.diceImg.classList.toggle("hide");
 };
 
 //button roll dice
