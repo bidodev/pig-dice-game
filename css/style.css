@@ -113,9 +113,10 @@ body {
 .player-current-label {
   text-transform: uppercase;
   margin-bottom: 10px;
-  font-size: 14px;
+  font-size: 16px;
+  font-family: Lato;
   font-weight: 600;
-  color: #181818;
+  color: #f1f1f1;
 }
 
 .player-current-score {
@@ -124,9 +125,8 @@ body {
 
 button {
   position: absolute;
-  width: 200px;
+  width: 20rem;
   left: 50%;
-  -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
   color: #555;
   background: none;
@@ -136,17 +136,15 @@ button {
   text-transform: uppercase;
   cursor: pointer;
   font-weight: 300;
-  -webkit-transition: background-color 0.3s, color 0.3s;
   transition: background-color 0.3s, color 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 button:hover {
   font-weight: 600;
   opacity: 0.8;
-}
-
-button:hover i {
-  /* margin-right: 20px; */
 }
 
 button:focus {
@@ -197,6 +195,12 @@ i {
 
 .winner .player-name {
   font-weight: 300;
+  color: #eb4d4d;
+}
+
+ion-icon {
+  font-size: 32px;
+  padding-right: 1rem;
   color: #eb4d4d;
 }
 /*# sourceMappingURL=style.css.map */
