@@ -12,6 +12,7 @@ GAME RULES:
 let scores = [0, 0];
 let roundScore = 0;
 let activePlayer = 0;
+let isRunning = true;
 
 const elements = {
   //dice image
@@ -29,6 +30,10 @@ const randomNumber = () => Math.floor(Math.random() * 6 + 1);
 
 //function to reset the scores and remove the dice image
 const resetGame = () => {
+  document.querySelector(`#name-${activePlayer}`).textContent = `Player ${
+    activePlayer + 1
+  }`;
+
   //console.log(elements.clearScores);
   elements.clearScores.forEach(element => (element.textContent = 0));
 
@@ -37,6 +42,8 @@ const resetGame = () => {
 
   //reset the scores storage var
   scores = [0, 0];
+
+  isRunning = true;
 };
 
 //FUNCTION NEXTPLAYER()
@@ -50,6 +57,7 @@ const nextPlayer = () => {
   roundScore = 0;
 
   //we have to clear the current score of the current player before change to the nextPlayer();
+
   document.querySelector(`#current-${activePlayer}`).textContent = 0;
 
   //let's hide the dice
@@ -73,27 +81,31 @@ const nextPlayer = () => {
  */
 
 elements.btnRoll.addEventListener("click", () => {
-  //generate a random number
-  const diceNumber = randomNumber();
+  if (isRunning) {
+    //generate a random number
+    const diceNumber = randomNumber();
 
-  //makes the dice image appears
-  elements.diceImg.classList.add("show");
+    //makes the dice image appears
+    elements.diceImg.classList.add("show");
 
-  //change de dice image to match the value of the random number
-  elements.diceImg.src = `img/dice-${diceNumber}.png`;
+    //change de dice image to match the value of the random number
+    elements.diceImg.src = `img/dice-${diceNumber}.png`;
 
-  /**
-   * If the dice is differ than 1, update the UI and roundScore value
-   * else calll nextplayer function
-   */
-  if (diceNumber !== 1) {
-    roundScore += diceNumber;
+    /**
+     * If the dice is differ than 1, update the UI and roundScore value
+     * else calll nextplayer function
+     */
+    if (diceNumber !== 1) {
+      roundScore += diceNumber;
 
-    //update the UI
-    document.querySelector(`#current-${activePlayer}`).textContent = roundScore;
-  } else {
-    //nextplayer
-    nextPlayer();
+      //update the UI
+      document.querySelector(
+        `#current-${activePlayer}`
+      ).textContent = roundScore;
+    } else {
+      //nextplayer
+      nextPlayer();
+    }
   }
 });
 
@@ -107,22 +119,24 @@ elements.btnRoll.addEventListener("click", () => {
 const btnHold = document.querySelector(`.btn-hold`);
 
 btnHold.addEventListener("click", () => {
-  const scoreHolder = document.querySelector(`#score-${activePlayer}`);
-  const winnerPlayer = document.querySelector(`#name-${activePlayer}`);
+  if (isRunning) {
+    const scoreHolder = document.querySelector(`#score-${activePlayer}`);
+    const winnerPlayer = document.querySelector(`#name-${activePlayer}`);
 
-  //adding the current score the global score.
-  scores[activePlayer] += roundScore;
-  //console.log(activePlayer);
+    //adding the current score the global score.
+    scores[activePlayer] += roundScore;
+    //console.log(activePlayer);
 
-  //updating the user interface;
-  scoreHolder.textContent = scores[activePlayer];
+    //updating the user interface;
+    scoreHolder.textContent = scores[activePlayer];
 
-  //check if the player won the game..
-  if (scores[activePlayer] >= 100) {
-    winnerPlayer.textContent = "Winner";
-    resetGame();
-  } else {
-    nextPlayer();
+    //check if the player won the game..
+    if (scores[activePlayer] >= 30) {
+      winnerPlayer.textContent = "Winner";
+      isRunning = false;
+    } else {
+      nextPlayer();
+    }
   }
 });
 
