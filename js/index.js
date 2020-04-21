@@ -13,6 +13,7 @@ let scores = [0, 0];
 let roundScore = 0;
 let activePlayer = 0;
 let isRunning = true;
+let maxPoints = prompt("Please tell me how many points will the game have.");
 
 const elements = {
   //dice image
@@ -44,6 +45,7 @@ const resetGame = () => {
   scores = [0, 0];
 
   isRunning = true;
+  maxPoints = prompt("Please tell me how many points will the game have.");
 };
 
 //FUNCTION NEXTPLAYER()
@@ -131,7 +133,7 @@ btnHold.addEventListener("click", () => {
     scoreHolder.textContent = scores[activePlayer];
 
     //check if the player won the game..
-    if (scores[activePlayer] >= 30) {
+    if (scores[activePlayer] >= maxPoints) {
       winnerPlayer.textContent = "Winner";
       isRunning = false;
     } else {
